@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Application Form</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom Configuration for Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#4f46e5',
+                        'success': '#10b981',
+                        'accent': '#f59e0b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* General styling for a clean look */
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .form-container {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s ease-in-out;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+            transition: all 0.3s;
+            border-radius: 0.375rem; /* rounded-md */
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, select:focus, textarea:focus {
+            border-color: #4f46e5; /* primary-600 */
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        .loader {
+            border-top-color: #4f46e5;
+            -webkit-animation: spinner 1s linear infinite;
+            animation: spinner 1s linear infinite;
+        }
+        @-webkit-keyframes spinner {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app_container" class="w-full max-w-2xl">
+        
+        <!-- Application Form Card -->
+        <div id="form_card" class="form-container bg-white p-6 md:p-10 rounded-xl">
+            <h1 class="text-3xl font-extrabold text-primary mb-2">Job Application</h1>
+            <p class="text-gray-500 mb-6">Please fill out the details below to apply for the position.</p>
+
+            <form id="registration_form" class="space-y-6">
+                
+                <!-- Full Name -->
+                <div>
+                    <label for="full_name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input type="text" id="full_name" name="full_name" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary">
+                </div>
+
+                <!-- Contact Info Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input type="email" id="email" name="email" required
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary">
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary">
+                    </div>
+                </div>
+
+                <!-- Position Dropdown -->
+                <div>
+                    <label for="position" class="block text-sm font-medium text-gray-700 mb-1">Position Applied For</label>
+                    <select id="position" name="position" required
+                            class="w-full p-3 border border-gray-300 bg-white rounded-lg focus:ring-primary">
+                        <option value="" disabled selected>Select a position</option>
+                        <option value="Software Engineer">Software Engineer</option>
+                        <option value="Product Manager">Product Manager</option>
+                        <option value="UX/UI Designer">UX/UI Designer</option>
+                        <option value="Data Analyst">Data Analyst</option>
+                    </select>
+                </div>
+
+                <!-- Experience Textarea -->
+                <div>
+                    <label for="experience" class="block text-sm font-medium text-gray-700 mb-1">Relevant Experience Summary</label>
+                    <textarea id="experience" name="experience" rows="4" required
+                              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary"
+                              placeholder="Briefly describe your relevant professional experience..."></textarea>
+                </div>
+
+                <!-- Consent Checkbox -->
+                <div class="flex items-start">
+                    <div class="flex items-center h-5">
+                        <input id="consent" name="consent" type="checkbox" required
+                               class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
+                    </div>
+                    <div class="ml-3 text-sm">
+                        <label for="consent" class="font-medium text-gray-700">I agree to the processing of my application data.</label>
+                        <p class="text-gray-500">You must check this box to proceed with the application.</p>
+                    </div>
+                </div>
+
+                <!-- Submission Button -->
+                <button type="submit" id="submit_button"
+                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg text-lg font-bold text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition ease-in-out duration-150 disabled:opacity-50">
+                    <span id="button_text">Submit Application</span>
+                    <div id="loading_spinner" class="hidden loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-6 w-6"></div>
+                </button>
+                <p id="error_message" class="text-red-500 text-center hidden"></p>
+            </form>
+        </div>
+
+        <!-- Submission Output Card (Hidden initially) -->
+        <div id="submission_output" class="hidden form-container bg-white p-6 md:p-10 rounded-xl">
+            <div class="text-center">
+                <svg class="w-16 h-16 text-success mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h2 class="text-3xl font-extrabold text-success mb-2">Application Submitted!</h2>
+                <p class="text-gray-600 mb-6">Thank you for your interest. Your application details have been successfully received and saved to the database.</p>
+                <div class="bg-gray-50 p-6 rounded-lg text-left">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Your Details</h3>
+                    <!-- Data will be injected here -->
+                    <div id="data_display" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Firebase Imports and Logic -->
+    <script type="module">
+        // Mandatory Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, addDoc, collection, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // IMPORTANT: Use the provided global variables
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db;
+        let auth;
+        let userId = null;
+        let isAuthReady = false;
+
+        // Function to initialize Firebase
+        async function initializeFirebase() {
+            try {
+                if (!firebaseConfig) {
+                    throw new Error("Firebase config is missing. Cannot initialize Firestore.");
+                }
+
+                // setLogLevel('Debug'); // Uncomment for debugging
+                
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // Authentication
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                    } else {
+                        userId = crypto.randomUUID(); // Fallback ID if sign-in fails
+                    }
+                    isAuthReady = true;
+                });
+
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+            } catch (error) {
+                console.error("Firebase Initialization Error:", error);
+                $('#error_message').text(`Initialization failed: ${error.message}`).removeClass('hidden');
+            }
+        }
+
+        // --- Application Logic (using jQuery and modern JS) ---
+
+        // Function to save the application data to Firestore
+        async function saveApplication(data) {
+            if (!isAuthReady || !userId || !db) {
+                console.error("Database or authentication not ready.");
+                throw new Error("Authentication failed. Please refresh the page.");
+            }
+
+            // Path: /artifacts/{appId}/users/{userId}/applications
+            const collectionPath = `artifacts/${appId}/users/${userId}/applications`;
+            
+            // Add metadata
+            const applicationData = {
+                ...data,
+                timestamp: new Date().toISOString(),
+                userId: userId,
+            };
+
+            // Save using exponential backoff retry logic
+            const MAX_RETRIES = 5;
+            for (let i = 0; i < MAX_RETRIES; i++) {
+                try {
+                    const docRef = await addDoc(collection(db, collectionPath), applicationData);
+                    console.log("Application saved with ID: ", docRef.id);
+                    return docRef.id;
+                } catch (error) {
+                    console.warn(`Firestore save failed (Attempt ${i + 1}):`, error);
+                    if (i === MAX_RETRIES - 1) throw error; // Re-throw if last attempt
+                    const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+
+        // Format and display the data on the success card
+        function displaySuccess(data) {
+            const displayHtml = `
+                <p><span class="font-semibold text-gray-700">Applicant ID:</span> ${userId}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
+                    <p><span class="font-semibold text-gray-700">Full Name:</span> <span class="text-primary font-bold">${data.full_name}</span></p>
+                    <p><span class="font-semibold text-gray-700">Email:</span> ${data.email}</p>
+                    <p><span class="font-semibold text-gray-700">Phone:</span> ${data.phone}</p>
+                    <p><span class="font-semibold text-gray-700">Position:</span> <span class="text-accent font-bold">${data.position}</span></p>
+                </div>
+                <div>
+                    <span class="font-semibold text-gray-700 block mt-3">Experience Summary:</span>
+                    <p class="mt-1 p-3 bg-white border border-gray-200 rounded-md whitespace-pre-wrap">${data.experience}</p>
+                </div>
+            `;
+            $('#data_display').html(displayHtml);
+            $('#form_card').fadeOut(500, function() {
+                $('#submission_output').fadeIn(500);
+            });
+        }
+
+        // Wait for the document to be fully loaded (using jQuery)
+        $(document).ready(function() {
+            // Start Firebase initialization
+            initializeFirebase();
+
+            // Form Submission Handler (using jQuery event binding)
+            $('#registration_form').on('submit', async function(e) {
+                e.preventDefault();
+
+                // Simple form validation (jQuery check for required fields)
+                if (!this.checkValidity()) {
+                    $('#error_message').text('Please fill out all required fields correctly.').removeClass('hidden');
+                    return;
+                }
+                
+                // Hide any previous errors
+                $('#error_message').addClass('hidden').text('');
+                
+                // Show loading state
+                $('#submit_button').prop('disabled', true);
+                $('#button_text').text('Submitting...');
+                $('#loading_spinner').removeClass('hidden').addClass('inline-block');
+
+                // Collect data
+                const formData = {
+                    full_name: $('#full_name').val(),
+                    email: $('#email').val(),
+                    phone: $('#phone').val(),
+                    position: $('#position').val(),
+                    experience: $('#experience').val(),
+                    consent: $('#consent').is(':checked'),
+                };
+
+                try {
+                    // 1. Wait for Auth to be ready
+                    while (!isAuthReady) {
+                        await new Promise(resolve => setTimeout(resolve, 100)); // Polling for auth readiness
+                    }
+                    
+                    // 2. Save data to Firestore
+                    await saveApplication(formData);
+
+                    // 3. On Success, display the formatted data
+                    displaySuccess(formData);
+
+                } catch (error) {
+                    // Handle failure
+                    console.error("Submission failed:", error);
+                    $('#error_message').text(`Submission failed: ${error.message || 'Check console for details.'}`).removeClass('hidden');
+
+                } finally {
+                    // Reset button state
+                    $('#submit_button').prop('disabled', false);
+                    $('#button_text').text('Submit Application');
+                    $('#loading_spinner').addClass('hidden').removeClass('inline-block');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

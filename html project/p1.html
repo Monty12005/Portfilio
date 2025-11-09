@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahantesh | Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* Gradient Theme (Purple-Pink) */
+    .gradient-bg {
+      background: linear-gradient(135deg, #9d4edd, #f72585);
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #9d4edd, #f72585);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link {
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background: linear-gradient(90deg, #9d4edd, #f72585);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-900 text-gray-100">
+
+  <!-- Navbar -->
+  <nav class="fixed w-full z-50 glass py-4">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <h1 class="text-2xl font-bold gradient-text">Mahantesh C</h1>
+
+      <ul class="hidden md:flex space-x-8 text-gray-300 font-medium items-center">
+        <li><a href="#home" class="nav-link hover:text-pink-400">Home</a></li>
+        <li><a href="#about" class="nav-link hover:text-pink-400">About</a></li>
+        <li><a href="#skills" class="nav-link hover:text-pink-400">Skills</a></li>
+        <li><a href="#projects" class="nav-link hover:text-pink-400">Projects</a></li>
+        <li><a href="#contact" class="nav-link hover:text-pink-400">Contact</a></li>
+        <li>
+          <a href="Mahantesh_Resume.pdf" target="_blank"
+             class="gradient-bg px-4 py-2 rounded-lg text-white font-medium hover:opacity-90 transition">
+            Resume
+          </a>
+        </li>
+      </ul>
+
+      <button id="menu-btn" class="md:hidden text-gray-300">
+        <i data-feather="menu"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden flex-col space-y-3 p-4 text-center glass md:hidden">
+      <a href="#home" class="block">Home</a>
+      <a href="#about" class="block">About</a>
+      <a href="#skills" class="block">Skills</a>
+      <a href="#projects" class="block">Projects</a>
+      <a href="#contact" class="block">Contact</a>
+      <a href="Mahantesh_Resume.pdf" target="_blank" class="block text-pink-400 font-medium">Resume</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center bg-gradient-to-b from-gray-900 to-gray-800 pt-20 px-4">
+    <img src="chavan.jpg" alt="Profile" class="w-40 h-40 rounded-full border-4 border-pink-400 mb-6 shadow-lg object-cover">
+    <h2 class="text-4xl md:text-5xl font-bold mb-2 gradient-text">Hi, I'm Mahantesh</h2>
+    <p class="text-xl text-gray-400 mb-4">Creative Web Developer & Designer</p>
+    <p class="max-w-2xl text-gray-400 mb-6">
+      Passionate about building modern, responsive, and user-friendly web applications using HTML, CSS, JavaScript, and more.
+    </p>
+    <div class="flex space-x-4">
+      <a href="#contact" class="gradient-bg px-6 py-3 rounded-lg font-medium text-white hover:opacity-90">Contact Me</a>
+      <a href="#projects" class="border border-pink-400 px-6 py-3 rounded-lg hover:bg-pink-400 hover:text-gray-900 transition">My Projects</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-20 px-6 bg-gray-800">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-3xl font-bold mb-4 gradient-text">About Me</h2>
+        <p class="text-gray-300 mb-4">
+          I’m <span class="text-pink-400 font-semibold">Mahantesh C</span>, a 3rd-year B.Tech Computer Science student at AJIET College, Mangaluru. 
+          I have a strong enthusiasm for technology and web development, and I love transforming ideas into meaningful digital experiences.
+        </p>
+        <p class="text-gray-300 mb-4">
+          My primary expertise includes front-end development using HTML, CSS, JavaScript, and frameworks like TailwindCSS. 
+          I also enjoy exploring backend technologies such as Node.js and Python, allowing me to develop full-stack applications.
+        </p>
+        <p class="text-gray-400 mb-4">
+          I consider myself a lifelong learner — I enjoy taking on new challenges, learning new frameworks, and adapting to emerging tech trends. 
+          My ultimate goal is to build products that are both beautiful and impactful, focusing on performance, accessibility, and user experience.
+        </p>
+        <p class="text-gray-400">
+          Outside of coding, I’m passionate about reading, playing cricket, and exploring new ideas in AI and cloud computing. 
+          I believe every project is a step forward to creating a better version of myself — one line of code at a time.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-20 px-6 bg-gray-900">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-12 gradient-text">My Skills</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="glass p-6 rounded-xl flex flex-col items-center">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="w-12 mb-2">
+          <p>HTML</p>
+        </div>
+        <div class="glass p-6 rounded-xl flex flex-col items-center">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="w-12 mb-2">
+          <p>CSS</p>
+        </div>
+        <div class="glass p-6 rounded-xl flex flex-col items-center">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="w-12 mb-2">
+          <p>JavaScript</p>
+        </div>
+        <div class="glass p-6 rounded-xl flex flex-col items-center">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="w-12 mb-2">
+          <p>Python</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-20 px-6 bg-gray-800">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-4 gradient-text">Projects</h2>
+      <p class="text-gray-400 mb-12">Here are some of my featured works</p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass p-4 rounded-xl">
+          <img src="eCommerce.jpg" alt="Project 1" class="rounded-lg mb-4">
+          <h3 class="text-lg font-semibold mb-2">E-commerce Website</h3>
+          <p class="text-gray-400 text-sm mb-3">A full-stack store with cart and Stripe payment integration.</p>
+          <a href="#" class="text-pink-400 flex items-center justify-center space-x-2 hover:text-pink-300">
+            <i data-feather="external-link" class="w-4 h-4"></i> <span>View</span>
+          </a>
+        </div>
+        <div class="glass p-4 rounded-xl">
+          <img src="p2.jpg" alt="Project 2" class="rounded-lg mb-4">
+          <h3 class="text-lg font-semibold mb-2">Task Tracker</h3>
+          <p class="text-gray-400 text-sm mb-3">Organize and prioritize tasks using local storage and drag-drop.</p>
+          <a href="#" class="text-pink-400 flex items-center justify-center space-x-2 hover:text-pink-300">
+            <i data-feather="external-link" class="w-4 h-4"></i> <span>View</span>
+          </a>
+        </div>
+        <div class="glass p-4 rounded-xl">
+          <img src="p3.png" alt="Project 3" class="rounded-lg mb-4">
+          <h3 class="text-lg font-semibold mb-2">Weather Dashboard</h3>
+          <p class="text-gray-400 text-sm mb-3">Get real-time weather data with API integration.</p>
+          <a href="#" class="text-pink-400 flex items-center justify-center space-x-2 hover:text-pink-300">
+            <i data-feather="external-link" class="w-4 h-4"></i> <span>View</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 px-6 bg-gray-900">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-4 gradient-text">Get In Touch</h2>
+      <p class="text-gray-400 mb-12">I'd love to collaborate on your next project. Drop a message!</p>
+      <form class="max-w-2xl mx-auto space-y-4">
+        <input type="text" placeholder="Your Name" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-pink-400">
+        <input type="email" placeholder="Your Email" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-pink-400">
+        <textarea placeholder="Your Message" rows="5" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-pink-400"></textarea>
+        <button class="gradient-bg w-full py-3 rounded-lg font-semibold text-white hover:opacity-90 transition">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6 bg-gray-800 text-center text-gray-400">
+    <p>&copy; 2025 Mahantesh C. Made with 💜 using TailwindCSS.</p>
+  </footer>
+
+  <script>
+    feather.replace();
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
